@@ -34,10 +34,10 @@ py -3 -m pip install -U lightdiscord
 
 First, you need to ``import lightdiscord``. You can then create a bot object, specify a token and optional features:
 
-- user: A boolean (True for user accounts, False by default)
-- listeners: A dictionnary containing your events listeners and the API endpoint
-- proxy: A proxy (None for no proxies, None by default)
-- user_agent: The user agent sent to discord
+- *user*: A boolean (True for user accounts, False by default)
+- *listeners*: A dictionnary containing your events listeners and the API endpoint
+- *proxy*: A proxy (None for no proxies, None by default)
+- *user_agent*: The user agent sent to discord
 
 
 ```python
@@ -46,5 +46,17 @@ bot = lightdiscord.Bot(
 )
 ```
 
+To start the bot, you need to use an async function. Here is an example with asyncio
+```python
+import asyncio
+
+async def main(loop):
+    await bot.start()
+
+if __name__ == "__main__":
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main(loop))
+    loop.run_forever()
+```
 
 You can check [https://github.com/Th0rgal/lightdiscord/blob/master/example.py](example.py)
