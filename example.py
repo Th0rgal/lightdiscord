@@ -11,8 +11,9 @@ async def on_ready(bot_instance, data):
         )
     )
 
+
 bot = lightdiscord.Bot(
-    "NDU3OTgyNTcxNDY5MzQwNjcy.Xqml1Q.-H7c7zmo89PugJUXxlyWd3SOYZQ", listeners={"READY": on_ready}
+    "YOUR_TOKEN", listeners={"READY": on_ready}
 )
 
 
