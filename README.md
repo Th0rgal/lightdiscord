@@ -9,7 +9,7 @@
 
 # Get lightdiscord
 
-To install the library without full voice support, you can just run the following command:
+To install the library, you can just run the following command:
 ```console
 # Linux/macOS
 python3 -m pip install -U lightdiscord
