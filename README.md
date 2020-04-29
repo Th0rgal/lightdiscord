@@ -7,9 +7,9 @@
 
 <h4 align="center">🤖 An ultra light library to develop discord bots with Python</h4>
 
-> :warning: If the size of the library and the proximity with the discord api is not absolutely necessary for you, [https://github.com/Rapptz/discord.py](discord.py) may be a better option.
-
 # Get lightdiscord
+
+> :warning: If the size of the library and the proximity with the discord api is not absolutely necessary for you, [https://github.com/Rapptz/discord.py](discord.py) may be a better option.
 
 To install the library without full voice support, you can just run the following command:
 ```console
