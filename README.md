@@ -22,14 +22,24 @@ py -3 -m pip install -U lightdiscord
 
 * Easy to use and quick to learn
 * Currently the smallest alternative to discord.py
-* Support multiple bot instances
 * Support custom listeners
+* Support multiple bot instances
 * Full support for Bot and User accounts
+* Support proxies
+* Customizable user agent
 * Low level: directly interact with the discord api and manage cache as you want
+
 
 # How to use?
 
-First, you need to ``import lightdiscord``. You can then create a bot object, specify a token and the events listener:
+First, you need to ``import lightdiscord``. You can then create a bot object, specify a token and optional features:
+
+- user: A boolean (True for user accounts, False by default)
+- listeners: A dictionnary containing your events listeners and the API endpoint
+- proxy: A proxy (None for no proxies, None by default)
+- user_agent: The user agent sent to discord
+
+
 ```python
 bot = lightdiscord.Bot(
     "YOUR_TOKEN", listeners={"READY": on_ready}
