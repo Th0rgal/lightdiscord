@@ -15,7 +15,7 @@ class Bot:
         user=False,
         listeners=None,
         proxy=None,
-        user_agent=f"DiscordBot (https://github.com/Th0rgal/lightdiscord, {__version__})",
+        user_agent=f"DiscordBot (https://git.io/lightdiscord, {__version__})",
     ):
         self.token = token if user else f"Bot {token}"
         self.listeners = listeners
