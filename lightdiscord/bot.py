@@ -34,33 +34,6 @@ class Bot:
                 if listener_name == event_name:
                     await self.listeners[listener_name](self, data)
 
-    async def get_private_channel_id(self, recipient_id):
-        return await self._api_call(
-            "/users/@me/channels", "POST", json={"recipient_id": recipient_id}
-        )
-
-    async def send_message(self, channel_id, content):
-        return await self._api_call(
-            f"/channels/{channel_id}/messages", "POST", json={"content": content}
-        )
-
-    async def send_friend_request(self, username, discriminator):
-        await self._api_call(
-            "/users/@me/relationships",
-            "POST",
-            json={"discriminator": discriminator, "username": username},
-        )
-
-    async def sleep_typing(self, channel_id, delay):
-        for _ in range(int(delay / 8)):
-            await self.send_typing(channel_id)
-            await asyncio.sleep(8)
-        await self.send_typing(channel_id)
-        await asyncio.sleep(delay % 8)
-
-    async def send_typing(self, channel_id):
-        await self._api_call(f"/channels/{channel_id}/typing", "POST", json={})
-
     async def _api_call(self, path, method="GET", **kwargs):
         # return the JSON body of a call to Discord REST API
         defaults = {
@@ -110,3 +83,34 @@ class Bot:
 
                     elif data["op"] == 0:  # dispatch event
                         await self.handle_event(data)
+
+    # global features (bots and users)
+
+    async def get_private_channel_id(self, recipient_id):
+        return await self._api_call(
+            "/users/@me/channels", "POST", json={"recipient_id": recipient_id}
+        )
+
+    async def send_message(self, channel_id, content):
+        return await self._api_call(
+            f"/channels/{channel_id}/messages", "POST", json={"content": content}
+        )
+
+    async def sleep_typing(self, channel_id, delay):
+        for _ in range(int(delay / 8)):
+            await self.send_typing(channel_id)
+            await asyncio.sleep(8)
+        await self.send_typing(channel_id)
+        await asyncio.sleep(delay % 8)
+
+    async def send_typing(self, channel_id):
+        await self._api_call(f"/channels/{channel_id}/typing", "POST", json={})
+
+    # users only features
+
+    async def send_friend_request(self, username, discriminator):
+        await self._api_call(
+            "/users/@me/relationships",
+            "POST",
+            json={"discriminator": discriminator, "username": username},
+        )
