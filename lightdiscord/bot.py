@@ -98,7 +98,7 @@ class Bot:
 
     async def set_status(self, status):
         return await self._api_call(
-            "/users/@me/settings", "POST", json={"status": status}
+            "/users/@me/settings", "PATCH", json={"status": status}
         )
 
     async def send_typing(self, channel_id):
