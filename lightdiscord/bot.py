@@ -96,15 +96,20 @@ class Bot:
             f"/channels/{channel_id}/messages", "POST", json={"content": content}
         )
 
+    async def set_status(self, status):
+        return await self._api_call(
+            "/users/@me/settings", "POST", json={"status": status}
+        )
+
+    async def send_typing(self, channel_id):
+        await self._api_call(f"/channels/{channel_id}/typing", "POST", json={})
+
     async def sleep_typing(self, channel_id, delay):
         for _ in range(int(delay / 8)):
             await self.send_typing(channel_id)
             await asyncio.sleep(8)
         await self.send_typing(channel_id)
         await asyncio.sleep(delay % 8)
-
-    async def send_typing(self, channel_id):
-        await self._api_call(f"/channels/{channel_id}/typing", "POST", json={})
 
     # users only features
 
