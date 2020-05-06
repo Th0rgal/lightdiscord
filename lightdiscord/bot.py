@@ -101,6 +101,21 @@ class Bot:
             "/users/@me/settings", "PATCH", json={"status": status}
         )
 
+    async def fetch_guild(self, guild_id, with_count=False):
+        return await self._api_call(
+            f"/guilds/{guild_id}", "GET", json={"with_counts?": with_count}
+        )
+
+    async def fetch_guild_members(self, guild_id, *, limit=None, after=None):
+        content = {}
+        if limit:
+            content["limit"] = limit
+        if after:
+            content["after"] = after
+        return await self._api_call(
+            f"/guilds/{guild_id}/members", "GET", json=content
+        )
+
     async def send_typing(self, channel_id):
         await self._api_call(f"/channels/{channel_id}/typing", "POST", json={})
 
