@@ -103,7 +103,7 @@ class Bot:
 
     async def fetch_guild(self, guild_id, with_count=False):
         return await self._api_call(
-            f"/guilds/{guild_id}", "GET", json={"with_counts?": with_count}
+            f"/guilds/{guild_id}", "GET", params={"with_counts?": "true" if with_count else "false"}
         )
 
     async def fetch_guild_members(self, guild_id, *, limit=None, after=None):
@@ -113,7 +113,7 @@ class Bot:
         if after:
             content["after"] = after
         return await self._api_call(
-            f"/guilds/{guild_id}/members", "GET", json=content
+            f"/guilds/{guild_id}/members", "GET", params=content
         )
 
     async def send_typing(self, channel_id):
