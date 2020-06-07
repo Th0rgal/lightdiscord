@@ -12,9 +12,7 @@ async def on_ready(bot_instance, data):
     )
 
 
-bot = lightdiscord.Bot(
-    "YOUR_TOKEN", listeners={"READY": on_ready}
-)
+bot = lightdiscord.Bot("YOUR_TOKEN", listeners={"READY": on_ready})
 
 
 async def main(loop):

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="lightdiscord", # Replace with your own username
+    name="lightdiscord",  # Replace with your own username
     version=__version__,
     author="Th0rgal",
     author_email="thomas.marchand@tuta.io",
@@ -16,8 +16,8 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License", # DBAD license is not supported :'(
+        "License :: OSI Approved :: MIT License",  # DBAD license is not supported :'(
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires=">=3.6",
 )

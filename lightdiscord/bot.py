@@ -24,7 +24,7 @@ class Bot:
 
     async def start(self):
         response = await self._api_call("/gateway")
-        await self._start(response["url"])
+        await self.connect(response["url"])
 
     async def handle_event(self, data):
         self.last_sequence = data["s"]
@@ -57,13 +57,24 @@ class Bot:
             await asyncio.sleep(interval / 1000)  # seconds
             await ws.send_json({"op": 1, "d": self.last_sequence})  # Heartbeat
 
-    async def _start(self, url):
+    async def connect(self, url):
         async with aiohttp.ClientSession() as session:
             async with session.ws_connect(
                 f"{url}?v=6&encoding=json", proxy=self.proxy
             ) as ws:
 
                 async for msg in ws:
+                    if msg.type in (aiohttp.WSMsgType.CLOSED, aiohttp.WSMsgType.CLOSE):
+                        print(
+                            "Trying to receive something while the websocket is closed! Trying to reconnect."
+                        )
+                        await self.connect(url)
+                    elif msg.type is aiohttp.WSMsgType.ERROR:
+                        print(
+                            f"Something went wrong with the websocket, reconnecting..."
+                        )
+                        await self.connect(url)
+
                     data = json.loads(msg.data)
                     if data["op"] == 10:  # hello
                         asyncio.ensure_future(
@@ -103,7 +114,9 @@ class Bot:
 
     async def fetch_guild(self, guild_id, with_count=False):
         return await self._api_call(
-            f"/guilds/{guild_id}", "GET", params={"with_counts?": "true" if with_count else "false"}
+            f"/guilds/{guild_id}",
+            "GET",
+            params={"with_counts?": "true" if with_count else "false"},
         )
 
     async def fetch_guild_members(self, guild_id, *, limit=None, after=None):
