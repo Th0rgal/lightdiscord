@@ -35,7 +35,6 @@ class Bot:
                     await self.listeners[listener_name](self, data)
 
     async def _api_call(self, path, method="GET", **kwargs):
-        # return the JSON body of a call to Discord REST API
         defaults = {
             "headers": {"Authorization": self.token, "User-Agent": self.user_agent}
         }
@@ -60,7 +59,7 @@ class Bot:
     async def connect(self, url):
         async with aiohttp.ClientSession() as session:
             async with session.ws_connect(
-                f"{url}?v=6&encoding=json", proxy=self.proxy
+                f"{url}?v=9&encoding=json", proxy=self.proxy
             ) as ws:
 
                 async for msg in ws:
